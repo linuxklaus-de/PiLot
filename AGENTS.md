@@ -40,7 +40,7 @@
 
 - VS Code extension targeting `^1.85.0`
 - TypeScript `~6.0.3` with NodeNext/ESM-style resolution for extension sources
-- Svelte `^5.56.9` + Vite `^8.2.2` for the webview UI
+- Svelte `^5.56.9` + Vite `^8.3.5` for the webview UI
 - ESLint `^10.8.1`, esbuild `^0.28.2`, Mocha `^12.0.1`, `@vscode/test-electron` `^3.1.0`
 - PI SDK: `@earendil-works/pi-coding-agent` is a devDependency for types and tests; `src/loader.cjs` resolves it from the user's globally installed PI CLI at runtime
 - Package manager: `pnpm@11.8.0`
@@ -61,6 +61,12 @@
 - `src/binary-service.ts` — shell command execution, git branch resolution
 - `src/git-extension.ts` — minimal local typings/bridge for the built-in `vscode.git` API
 - `src/git-commit-message.ts` — staged-diff commit-message drafting via PI print mode (read-only; never touches git state)
+- `src/mcp-manager.ts` — MCP server management panel backend
+- `src/pi-settings.ts` — PI CLI/TUI settings read/write
+- `src/project-trust.ts` — workspace trust handling
+- `src/provider-migration.ts` — provider/config migrations
+- `src/runtime-guard.ts` — PI runtime compatibility guard
+- `src/loader-version.cjs` — PI SDK version selection for the loader
 - `src/model-registry-handler.ts` — model list fetching and caching
 - `src/package-manager.ts` — PI package install/update/remove operations
 - `src/update-checker.ts` — extension update notification and changelog display
@@ -69,12 +75,13 @@
 - `src/utils/native-addons.ts` — native addon ABI mismatch detection and recovery
 - `src/utils/shell.ts` — cross-platform shell helpers
 - `src/protocol/types.ts` — shared host/webview message type definitions
-- `src/webview/` — Svelte app (App.svelte + 23 components, entry `main.ts`), types, styles
-- `src/test/` — Mocha suites: `suite/unit/` (21 host-independent files), `suite/realhost-*.test.ts` (VS Code host-only integration), `webview/` (jsdom component specs), `mocks/` (`vscode-facade.ts`/`vscode-shim.ts`, `pi-sdk-mocks.ts`, `session-mock.ts`), `runTest.ts` (Electron host runner)
+- `src/webview/` — Svelte app (App.svelte + 29 components, entry `main.ts`), types, styles
+- `src/test/` — Mocha suites: `suite/unit/` (28 host-independent files), `suite/realhost-*.test.ts` (VS Code host-only integration), `webview/` (jsdom component specs), `mocks/` (`vscode-facade.ts`/`vscode-shim.ts`, `pi-sdk-mocks.ts`, `session-mock.ts`), `runTest.ts` (Electron host runner)
 - `scripts/` — verification and test orchestration (`verify.mjs`, `run-node-tests.mjs`, `run-e2e.mjs`, `run-webview-tests.mjs`, `fallow-audit.mjs`, `dl-vscode.mjs`) and install-time patching (`postinstall-patch.mjs`)
 - `fallow-baselines/` — checked-in Fallow baselines (dead code, dupes, health) so inherited main debt never gates new changes
 - `media/` — icons, screenshots, and bundled voice binaries
 - `.github/workflows/ci.yml` — CI runs the same chain as `pnpm verify:full` (build before test stages; xvfb on Linux)
+- `.github/workflows/audit.yml` — supply-chain gate: `pnpm audit` + osv-scanner, both must pass
 - Root config: `esbuild.config.mjs`, `eslint.config.mjs`, `svelte.config.js`, `tsconfig.json`, `tsconfig.test.json`, `tsconfig.webview.json`, `vite.webview.config.mts`, `pnpm-workspace.yaml`
 
 ## Related Docs
