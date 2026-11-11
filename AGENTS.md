@@ -38,7 +38,7 @@
 
 ## Tech Stack
 
-- VS Code extension targeting `^1.85.0`
+- VS Code extension targeting `^1.105.0` (Node `>=22.19.0`)
 - TypeScript `~6.0.3` with NodeNext/ESM-style resolution for extension sources
 - Svelte `^5.56.9` + Vite `^8.3.5` for the webview UI
 - ESLint `^10.8.1`, esbuild `^0.28.2`, Mocha `^12.0.1`, `@vscode/test-electron` `^3.1.0`
@@ -61,12 +61,12 @@
 - `src/binary-service.ts` — shell command execution, git branch resolution
 - `src/git-extension.ts` — minimal local typings/bridge for the built-in `vscode.git` API
 - `src/git-commit-message.ts` — staged-diff commit-message drafting via PI print mode (read-only; never touches git state)
-- `src/mcp-manager.ts` — MCP server management panel backend
-- `src/pi-settings.ts` — PI CLI/TUI settings read/write
-- `src/project-trust.ts` — workspace trust handling
-- `src/provider-migration.ts` — provider/config migrations
-- `src/runtime-guard.ts` — PI runtime compatibility guard
-- `src/loader-version.cjs` — PI SDK version selection for the loader
+- `src/mcp-manager.ts` — MCP server management: lists/validates `~/.pi/agent/mcp.json` and `<workspace>/.pi/mcp.json`, delegates add/remove/login/logout to the PI CLI
+- `src/pi-settings.ts` — codemode settings defaults and helpers shared with the PI CLI/TUI
+- `src/project-trust.ts` — resolves PI 1.4 project trust (`ask`/`always`/`never`) via PI's `trust.json`
+- `src/provider-migration.ts` — migrates the legacy `azure-openai-responses` provider id to `azure`
+- `src/runtime-guard.ts` — activation check for Node `>= 22.19.0`
+- `src/loader-version.cjs` — rejects PI SDK older than 1.4.0 before the bundle loads
 - `src/model-registry-handler.ts` — model list fetching and caching
 - `src/package-manager.ts` — PI package install/update/remove operations
 - `src/update-checker.ts` — extension update notification and changelog display
